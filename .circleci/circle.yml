@@ -19,8 +19,8 @@ jobs:
       - image: circleci/node:8.9.1
     working_directory: /app
     steps:
-      - checkout
-      - run: sh deployments/qa.sh             
+      - name: Deploying to Now.sh
+      - run: sh ../deployments/qa.sh
 
 workflows:
   version: 2
