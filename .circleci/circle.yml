@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.1
+    steps:
+      - checkout
+      - run: docker build -t devops .
+
+  test:
+    docker:
+      - image: circleci/node:8.9.1
+    steps:
+      - checkout
+      - run: docker run devops yarn test
+
+  deploy:
+    docker:
+      - image: circleci/node:8.9.1
+    working_directory: /app
+    steps:
+      - checkout
+      - run: sh deployments/qa.sh             
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build
+      - test
+      - deploy
+          filters:
+            branches:
+              only: dev
