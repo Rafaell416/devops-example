@@ -29,6 +29,8 @@ workflows:
       - build
       - test
       - deploy
+          requires:
+            - build
           filters:
             branches:
               only: dev
